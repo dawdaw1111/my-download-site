@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>资源详情 - Riley下载站</title>
+    <link rel="icon" href="img/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .detail-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .resource-header {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 30px;
+        align-items: center;
+      }
+
+      .resource-main-image {
+        width: 120px;
+        height: 120px;
+        border-radius: 8px;
+        object-fit: contain;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 10px;
+      }
+
+      .resource-title {
+        flex-grow: 1;
+      }
+
+      .resource-title h1 {
+        color: #00b3ee;
+        margin-bottom: 10px;
+      }
+
+      .resource-meta {
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 5px;
+        font-size: 0.9rem;
+      }
+
+      .resource-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+        margin: 30px 0;
+      }
+
+      .gallery-image {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .gallery-image:hover {
+        transform: scale(1.03);
+      }
+
+      .resource-description {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        line-height: 1.8;
+      }
+
+      .payment-section {
+        background: rgba(0, 179, 238, 0.05);
+        padding: 25px;
+        border-radius: 8px;
+        text-align: center;
+        margin-top: 30px;
+      }
+
+      .qr-code-container {
+        display: inline-block;
+        background: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        margin: 20px 0;
+      }
+
+      .qr-code {
+        width: 200px;
+        height: 200px;
+      }
+
+      .download-section {
+        margin-top: 20px;
+        display: none;
+      }
+
+      .download-link {
+        display: inline-block;
+        background: #007acc;
+        color: #ffffff;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        margin-top: 15px;
+      }
+
+      .download-link:hover {
+        background: #005a99;
+        transform: translateY(-2px);
+      }
+
+      .back-link {
+        display: inline-block;
+        color: #00b3ee;
+        text-decoration: none;
+        margin-bottom: 20px;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+      }
+
+      .back-link:hover {
+        color: #0094c8;
+      }
+
+      .payment-hint {
+        color: #ffcc00;
+        margin: 15px 0;
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="logo-container">
+        <img src="img/logo.png" alt="下载站 Logo" class="logo" />
+        <h1 class="site-name">Riley下载站</h1>
+      </div>
+      <nav class="nav">
+        <ul>
+          <li><a href="index.html">首页</a></li>
+          <li><a href="index.html#windows">Windows</a></li>
+          <li><a href="index.html#linux">Linux</a></li>
+          <li><a href="index.html#software">软件</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main">
+      <div class="detail-container">
+        <a href="index.html" class="back-link">← 返回资源列表</a>
+
+        <div class="resource-header">
+          <img
+            src=""
+            alt="资源图片"
+            class="resource-main-image"
+            id="mainImage"
+          />
+          <div class="resource-title">
+            <h1 id="resourceName">资源名称</h1>
+            <div class="resource-meta" id="resourceSize">文件大小：--</div>
+            <div class="resource-meta" id="resourceLang">语言：--</div>
+            <div class="resource-meta" id="resourcePlatform">平台：--</div>
+          </div>
+        </div>
+
+        <div class="resource-description" id="resourceDesc">
+          资源详细介绍将在这里显示...
+        </div>
+
+        <h2>资源截图</h2>
+        <div class="resource-gallery" id="resourceGallery">
+          <!-- 图片将通过JS动态加载 -->
+        </div>
+
+        <div class="payment-section">
+          <h2>获取下载地址</h2>
+          <p>扫描下方二维码完成支付后，将显示下载地址</p>
+          <div class="payment-hint">提示：支付金额可自行选择，支持任意金额</div>
+
+          <div class="qr-code-container">
+            <img src="img/payment-qr.jpg" alt="收款二维码" class="qr-code" />
+          </div>
+
+          <button id="confirmPayment" class="download-btn">
+            已完成支付，获取下载地址
+          </button>
+
+          <div class="download-section" id="downloadSection">
+            <p>感谢您的支持！下载地址如下：</p>
+            <a href="" target="_blank" class="download-link" id="downloadLink"
+              >点击前往百度云下载</a
+            >
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>
+        © 2025 Riley下载站 | 联系:Riley@ctfclub.org | 本站资源仅供学习交流使用
+      </p>
+    </footer>
+
+    <script>
+      // 资源数据
+      const resources = {
+        win10: {
+          name: "Windows 10",
+          size: "5.7GB",
+          lang: "简体中文",
+          platform: "Windows",
+          mainImage: "img/win10.png",
+          gallery: ["img/win10-1.jpg", "img/win10-2.jpg", "img/win10-3.jpg"],
+          description:
+            "Windows 10 是微软公司发布的操作系统，具有全新的开始菜单、Cortana语音助手、Microsoft Edge浏览器等功能。本镜像为官方原版镜像，包含所有版本，安装时可选择。系统已激活，无需额外操作即可正常使用。",
+          downloadUrl:
+            "https://pan.xunlei.com/s/VOITb0dcYTICgCav6AuKf9sZA1?pwd=8qn4#",
+        },
+        win11: {
+          name: "Windows 11",
+          size: "5.2GB",
+          lang: "简体中文",
+          platform: "Windows",
+          mainImage: "img/win11.png",
+          gallery: ["img/win11-1.jpg", "img/win11-2.jpg"],
+          description:
+            "Windows 11 是微软推出的最新操作系统，带来了全新的用户界面、更好的多任务处理、增强的游戏性能和更安全的防护功能。本版本为官方正式版，适合现代硬件配置的电脑安装使用。",
+          downloadUrl:
+            "https://pan.xunlei.com/s/VOITcQSMpKKuOc9K2SrvEV8fA1?pwd=mvxs",
+        },
+        // 其他资源数据...
+        PS2025: {
+          name: "PS2025",
+          size: "13.14GB",
+          lang: "简体中文",
+          platform: "Windows",
+          mainImage: "img/win10.png",
+          gallery: ["img/win10-1.jpg", "img/win10-2.jpg", "img/win10-3.jpg"],
+          description: "PSPSPSPSPSPSPSPSPSPSPSPSPS",
+          downloadUrl:
+            "https://pan.xunlei.com/s/VOITb0dcYTICgCav6AuKf9sZA1?pwd=8qn4#",
+        },
+      };
+
+      // 获取URL参数
+      function getQueryParam(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+      }
+
+      // 加载资源详情
+      function loadResourceDetail() {
+        const resourceId = getQueryParam("id");
+        const resource = resources[resourceId];
+
+        if (!resource) {
+          document.getElementById("resourceName").textContent = "资源不存在";
+          return;
+        }
+
+        // 填充资源信息
+        document.getElementById("resourceName").textContent = resource.name;
+        document.getElementById(
+          "resourceSize"
+        ).textContent = `文件大小：${resource.size}`;
+        document.getElementById(
+          "resourceLang"
+        ).textContent = `语言：${resource.lang}`;
+        document.getElementById(
+          "resourcePlatform"
+        ).textContent = `平台：${resource.platform}`;
+        document.getElementById("mainImage").src = resource.mainImage;
+        document.getElementById("mainImage").alt = resource.name;
+        document.getElementById("resourceDesc").textContent =
+          resource.description;
+        document.getElementById("downloadLink").href = resource.downloadUrl;
+
+        // 加载图片画廊
+        const galleryContainer = document.getElementById("resourceGallery");
+        resource.gallery.forEach((imgSrc) => {
+          const img = document.createElement("img");
+          img.src = imgSrc;
+          img.alt = `${resource.name} 截图`;
+          img.className = "gallery-image";
+          galleryContainer.appendChild(img);
+        });
+      }
+
+      // 支付确认按钮事件
+      document
+        .getElementById("confirmPayment")
+        .addEventListener("click", function () {
+          // 显示加载状态
+          this.textContent = "验证中...";
+          this.disabled = true;
+
+          // 模拟验证过程
+          setTimeout(() => {
+            document.getElementById("downloadSection").style.display = "block";
+            this.textContent = "已完成支付，获取下载地址";
+            this.disabled = false;
+          }, 2000);
+        });
+
+      // 页面加载完成后加载资源详情
+      window.addEventListener("DOMContentLoaded", loadResourceDetail);
+    </script>
+  </body>
+</html>
